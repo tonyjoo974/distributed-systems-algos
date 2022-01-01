@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+package tutorial;
+
+message isis {
+  required int32 proposed_sequence = 1;
+  required string proposed_sequence_process_id = 2;
+
+  required string message_owner_process_id = 3;
+  required string sender_process_id = 4;  
+
+  required string message_id = 5;
+  required string message = 6;
+
+  required bool is_agreed = 7;
+}
+
+

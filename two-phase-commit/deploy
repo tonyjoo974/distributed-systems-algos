@@ -1,0 +1,100 @@
+#!/bin/sh
+
+#cmd="ls -la $APPROOTDIR | grep exception"
+
+user=$2
+pass=$3
+
+fileName3="*.py config.txt server client *.txt"
+fileName=$fileName3
+hostCount=$4
+currentHost=""
+
+createDir()
+{
+    for i in $(seq 1 $hostCount); 
+    do 
+        #port="077"
+        #runScript="python3 -u gentx.py 5 | python3 mp1_node.py node$i $i$port config_${i}_${hostCount}.txt"
+        runScriptFile="run_${i}.sh"
+        currentHost="fa21-cs425-g47-0$i.cs.illinois.edu"
+        #echo $runScript > run.sh
+        createDirInternal &
+    done
+}
+
+createDirInternal()
+{
+    sshpass -p $pass ssh -o StrictHostKeyChecking=no $user@$currentHost mkdir mp3
+    echo "Making MP3 dir to $currentHost done"    
+    #echo $runScript > $runScriptFile
+    #sshpass -p $pass scp -o StrictHostKeyChecking=no $runScriptFile $user@$currentHost:~/mp3
+    #echo "Creating $runScriptFile for $currentHost done"
+}
+
+cpFile()
+{
+    for i in $(seq 1 $hostCount); 
+    do 
+        currentHost="fa21-cs425-g47-0$i.cs.illinois.edu"
+        cpFileInternal &
+    done
+}
+
+cpFileInternal()
+{
+    sshpass -p $pass scp  -o StrictHostKeyChecking=no $fileName $user@$currentHost:~/mp3
+    echo "Copying file to $currentHost done "
+}
+
+run3() {
+    echo "Trying to run server script "
+    #sshpass -p $pass ssh -o StrictHostKeyChecking=no $user@fa21-cs425-g47-01.cs.illinois.edu ~/mp3/script A config.txt &
+    #sshpass -p $pass ssh -o StrictHostKeyChecking=no $user@fa21-cs425-g47-01.cs.illinois.edu ./script B config.txt
+    echo "Running Script done"
+}
+
+
+test() {
+    for i in $(seq 0 4); 
+    do 
+        inFile="in_test_${i}.txt"
+        outFile="delete_output_${i}.txt"
+        expected="out_test_${i}.txt"
+        #echo "running client with in file $inFile ------------"
+        ./client clientID1 config.txt < $inFile > $outFile
+        #echo "COMPARING $outFile $expected ********"
+        cmp $outFile $expected
+    done    
+}
+
+
+if [ -z $2 ]; then
+  echo " NEED PARAM 2 password"
+fi
+
+if [ -z $3 ]; then
+  echo " NEED PARAM 3 username"
+fi
+
+if [ -z $4 ]; then
+  echo " NEED PARAM 4 hostcount"
+fi
+
+if [ -z $1 ]; then
+    echo "NEED PARAM 1 [ mkDir | cpFile | init | test]"
+elif [ $1 = "createDir" ]; then 
+    echo "createDir"
+    createDir
+elif [ $1 = "cpFile" ]; then
+    echo "cpFile"
+    cpFile
+elif [ $1 = "init" ]; then
+    echo "init"
+elif [ $1 = "test" ]; then
+    test
+elif [ $1 = "run3" ]; then
+    run3
+else
+    echo "NEED PARAM 1 [ mkDir | cpFile | init | test ]"
+fi

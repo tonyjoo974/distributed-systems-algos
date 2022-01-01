@@ -1,0 +1,3 @@
+#!/bin/sh
+
+python3.10 raft.py $1 $2add raft

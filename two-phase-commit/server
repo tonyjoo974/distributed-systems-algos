@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#python3 server.py C config_txt 1234
+python3 server.py $1 $2 $3

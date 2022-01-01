@@ -1,0 +1,3 @@
+A fa21-cs425-g47-01.cs.illinois.edu 2000
+B fa21-cs425-g47-02.cs.illinois.edu 2100
+C fa21-cs425-g47-03.cs.illinois.edu 2200

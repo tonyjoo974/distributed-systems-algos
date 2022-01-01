@@ -1,0 +1,4 @@
+#!/usr/bin sh
+
+#python3 mp1_node.py node1 1000 config_1.txt
+python3 mp1_node.py $1 $2 $3

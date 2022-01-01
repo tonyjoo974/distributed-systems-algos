@@ -1,0 +1,8 @@
+7
+node1 fa21-cs425-g47-01.cs.illinois.edu 1077
+node2 fa21-cs425-g47-02.cs.illinois.edu 2077
+node3 fa21-cs425-g47-03.cs.illinois.edu 3077
+node4 fa21-cs425-g47-04.cs.illinois.edu 4077
+node5 fa21-cs425-g47-05.cs.illinois.edu 5077
+node6 fa21-cs425-g47-06.cs.illinois.edu 6077
+node8 fa21-cs425-g47-08.cs.illinois.edu 8077
